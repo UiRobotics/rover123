@@ -72,7 +72,7 @@ void setup()
   ST_Dig.autobaud();
   ST_Dig.setRamping(55);
 
-  MD_Bucket.init();
+  MD_Bucket.init();//
 }
 /********/
 /* LOOP */
