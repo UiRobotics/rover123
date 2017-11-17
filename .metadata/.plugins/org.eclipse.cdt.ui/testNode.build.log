@@ -1,0 +1,46 @@
+15:45:01 **** Build of configuration Debug for project testNode ****
+make all 
+Building file: ../src/Device.cpp
+Invoking: GCC C++ Compiler
+g++ -std=c++0x -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Device.d" -MT"src/Device.o" -o "src/Device.o" "../src/Device.cpp"
+../src/Device.cpp: In constructor 'Device::Device(char*)':
+../src/Device.cpp:16:19: warning: converting to non-pointer type 'short unsigned int' from NULL [-Wconversion-null]
+  ,mc_RecvPort(NULL)
+                   ^
+Finished building: ../src/Device.cpp
+ 
+Building file: ../src/motor.cpp
+Invoking: GCC C++ Compiler
+g++ -std=c++0x -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/motor.d" -MT"src/motor.o" -o "src/motor.o" "../src/motor.cpp"
+Finished building: ../src/motor.cpp
+ 
+Building file: ../src/start.cpp
+Invoking: GCC C++ Compiler
+g++ -std=c++0x -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/start.d" -MT"src/start.o" -o "src/start.o" "../src/start.cpp"
+Finished building: ../src/start.cpp
+ 
+Building file: ../lib/tcpS/PracticalSocket.cpp
+Invoking: GCC C++ Compiler
+g++ -std=c++0x -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"lib/tcpS/PracticalSocket.d" -MT"lib/tcpS/PracticalSocket.o" -o "lib/tcpS/PracticalSocket.o" "../lib/tcpS/PracticalSocket.cpp"
+Finished building: ../lib/tcpS/PracticalSocket.cpp
+ 
+Building file: ../lib/TransToOldFormat/msgParser.cpp
+Invoking: GCC C++ Compiler
+g++ -std=c++0x -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"lib/TransToOldFormat/msgParser.d" -MT"lib/TransToOldFormat/msgParser.o" -o "lib/TransToOldFormat/msgParser.o" "../lib/TransToOldFormat/msgParser.cpp"
+../lib/TransToOldFormat/msgParser.cpp: In function 'std::string msgParser::TransToOldFormat(std::string)':
+../lib/TransToOldFormat/msgParser.cpp:109:9: warning: unused variable 'c' [-Wunused-variable]
+    char c;
+         ^
+Finished building: ../lib/TransToOldFormat/msgParser.cpp
+ 
+Building file: ../lib/arduino-serial-lib.cpp
+Invoking: GCC C++ Compiler
+g++ -std=c++0x -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"lib/arduino-serial-lib.d" -MT"lib/arduino-serial-lib.o" -o "lib/arduino-serial-lib.o" "../lib/arduino-serial-lib.cpp"
+../lib/arduino-serial-lib.cpp: In function 'int serialport_read_until(int, char*, char, int, int)':
+../lib/arduino-serial-lib.cpp:129:30: error: 'usleep' was not declared in this scope
+             usleep( 1 * 1000 );  // wait 1 msec try again
+                              ^
+make: *** [lib/subdir.mk:20: lib/arduino-serial-lib.o] Error 1
+
+15:45:06 Build Finished (took 5s.381ms)
+

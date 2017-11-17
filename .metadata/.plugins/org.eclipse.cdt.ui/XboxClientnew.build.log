@@ -1,0 +1,25 @@
+14:25:36 **** Incremental Build of configuration Debug for project XboxClientnew ****
+make all 
+Building file: ../lib/tcpS/PracticalSocket.cpp
+Invoking: Cygwin C++ Compiler
+g++ -std=c++0x -I"C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"lib/tcpS/PracticalSocket.d" -MT"lib/tcpS/PracticalSocket.o" -o "lib/tcpS/PracticalSocket.o" "../lib/tcpS/PracticalSocket.cpp"
+Finished building: ../lib/tcpS/PracticalSocket.cpp
+ 
+Building file: ../Start.cpp
+Invoking: Cygwin C++ Compiler
+g++ -std=c++0x -I"C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Start.d" -MT"Start.o" -o "Start.o" "../Start.cpp"
+Finished building: ../Start.cpp
+ 
+Building target: XboxClientnew.exe
+Invoking: Cygwin C++ Linker
+g++ -L"C:\Program Files (x86)\Windows Kits\10\Lib\10.0.15063.0\um\x86" -o "XboxClientnew.exe"  ./lib/tcpS/PracticalSocket.o  ./Start.o   -lxinput.lib
+/usr/lib/gcc/x86_64-pc-cygwin/5.4.0/../../../../x86_64-pc-cygwin/bin/ld: cannot find -lxinput.lib
+/usr/lib/gcc/x86_64-pc-cygwin/5.4.0/../../../../x86_64-pc-cygwin/bin/ld: skipping incompatible C:\Program Files (x86)\Windows Kits\10\Lib\10.0.15063.0\um\x86/advapi32.lib when searching for -ladvapi32
+/usr/lib/gcc/x86_64-pc-cygwin/5.4.0/../../../../x86_64-pc-cygwin/bin/ld: skipping incompatible C:\Program Files (x86)\Windows Kits\10\Lib\10.0.15063.0\um\x86/shell32.lib when searching for -lshell32
+/usr/lib/gcc/x86_64-pc-cygwin/5.4.0/../../../../x86_64-pc-cygwin/bin/ld: skipping incompatible C:\Program Files (x86)\Windows Kits\10\Lib\10.0.15063.0\um\x86/user32.lib when searching for -luser32
+/usr/lib/gcc/x86_64-pc-cygwin/5.4.0/../../../../x86_64-pc-cygwin/bin/ld: skipping incompatible C:\Program Files (x86)\Windows Kits\10\Lib\10.0.15063.0\um\x86/kernel32.lib when searching for -lkernel32
+collect2: error: ld returned 1 exit status
+make: *** [makefile:47: XboxClientnew.exe] Error 1
+
+14:25:37 Build Finished (took 1s.596ms)
+

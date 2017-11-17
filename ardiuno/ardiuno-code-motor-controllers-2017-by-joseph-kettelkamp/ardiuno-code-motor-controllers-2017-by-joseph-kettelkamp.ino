@@ -1,14 +1,18 @@
 #include <Servo.h>
+
+//#define DEBUG
+
 Servo servo1;
+float servo1PowerLevel;
 Servo servo2;
+
+Servo servo3;
+Servo servo4;
 
 #include <math.h>
 
 #define DRIVE_TRAIN_RIGHT '0'
 #define DRIVE_TRAIN_LEFT '1'
-#define DIGGER '2'
-#define BUCKET '3'
-#define PUSHER '4'
 
 // Define what the directions are
 #define FORWARD '1'
@@ -34,93 +38,108 @@ bool message_done = false;
 
 void setup() {
 
-  servo1.attach(9);
-  servo2.attach(10);
+  servo1.attach(9, 1000, 2000);
+  servo2.attach(10, 1000, 2000);
+  servo3.attach(2, 1000, 2000);
+  servo4.attach(3, 1000, 2000);
+
   Serial.begin(9600);
+
 }
 
 void loop() {
 
-/* what for new data to become available */
-  while (Serial.available() == 0)  {}
-  in_byte = Serial.read();
-  /* if the new data was the beginning of a message then reset everything */
-  /* if the new byte says stop, then stop everything and reset */
-  if(in_byte == STOP_ALL)
-  {
-    allStop();
-    read_index = 0;
-    message_done = false;
-  }
-  else if(in_byte == START_CHAR)
-  {
-    read_index = 1;
-    message_done = false;
-  }
-  /* read the next byte into motor_byte */
-  else if(read_index == 1)
-  {
-    motor_byte = in_byte;
-    read_index = 2; // start looking for dir_byte
-  }
-  /* read the next byte into dir_byte */
-  else if(read_index == 2)
-  {
-    dir_byte = in_byte;
-    read_index = 3; // start looking for power_bytes
-  }
-  /* read the next three bytes into power_bytes */
-  else if(read_index == 3)
-  {
-    power_bytes[0] = in_byte;
-    read_index = 4;
-  }
-  else if(read_index == 4)
-  {
-    power_bytes[1] = in_byte;
-    read_index = 5;
-  }
-  else if(read_index == 5)
-  {
-    power_bytes[2] = in_byte;
-    read_index = 0; // stop looking for new data bytes (only start byte)
-    message_done = true; // let the program know that the message isready
-  }
+  /* what for new data to become available */
 
+  if (Serial.available() > 0) {
+    in_byte = Serial.read();
+    /* if the new data was the beginning of a message then reset everything */
+    /* if the new byte says stop, then stop everything and reset */
+
+#ifdef DEBUG
+    Serial.print((char)in_byte);
+#endif
+    
+    if (in_byte == STOP_ALL)
+    {
+      allStop();
+      read_index = 0;
+      message_done = false;
+    }
+    else if (in_byte == START_CHAR)
+    {
+      read_index = 1;
+      message_done = false;
+    }
+    /* read the next byte into motor_byte */
+    else if (read_index == 1)
+    {
+      motor_byte = in_byte;
+      read_index = 2; // start looking for dir_byte
+    }
+    /* read the next byte into dir_byte */
+    else if (read_index == 2)
+    {
+      dir_byte = in_byte;
+      read_index = 3; // start looking for power_bytes
+    }
+    /* read the next three bytes into power_bytes */
+    else if (read_index == 3)
+    {
+      power_bytes[0] = in_byte;
+      read_index = 4;
+    }
+    else if (read_index == 4)
+    {
+      power_bytes[1] = in_byte;
+      read_index = 5;
+    }
+    else if (read_index == 5)
+    {
+      power_bytes[2] = in_byte;
+      read_index = 0; // stop looking for new data bytes (only start byte)
+      message_done = true; // let the program know that the message isready
+    }
+  }
   /* if we have a full message, process it */
-  if(message_done)
+  if (message_done)
   {
     message_done = false;
     /* convert power_bytes and dir_byte into a signed integer */
     int p_level = atoi(power_bytes);
-    if(dir_byte == BACKWARD) { p_level = -1*p_level; }
+    if (dir_byte == BACKWARD) {
+      p_level = -1 * p_level;
+    }
 
     /* set the power level of the correct motor */
-    if(motor_byte == DRIVE_TRAIN_RIGHT)
+    if (motor_byte == DRIVE_TRAIN_RIGHT)
     {
-      //ST_Drive.motor(1,-1*p_level);
       servo1.write(toNewPowerFormat(p_level));
+      servo3.write(toNewPowerFormat(p_level));
     }
-    if(motor_byte == DRIVE_TRAIN_LEFT)
+    if (motor_byte == DRIVE_TRAIN_LEFT)
     {
-      //ST_Drive.motor(2,-1*p_level);
       servo2.write(toNewPowerFormat(p_level));
+      servo4.write(toNewPowerFormat(p_level));
     }
-
   }
 }
 
 int toNewPowerFormat(int old)
 {
 
-  float temp = (128 - (float)old)/128;
-  temp = temp * 90;
+  float temp;
 
-   return (int)floorf(temp);
+  temp = ((float)old) / 128;
+  temp = temp * 90 + 90;
+
+  return (int)floorf(temp);
 }
 
 void allStop()
 {
   servo1.write(90);
   servo2.write(90);
+  servo3.write(90);
+  servo4.write(90);
 }
